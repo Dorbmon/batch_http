@@ -70,7 +70,7 @@ The `batch_request` function processes a list of `Request` objects and returns t
 - **Example:**
 
   ```python
-  from batch_request_library import Request, batch_request
+  from batch_http_request import Request, batch_request
 
   requests = [
       Request(url="https://api.example.com/data", method="GET"),
