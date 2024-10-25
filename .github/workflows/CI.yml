@@ -100,8 +100,10 @@ jobs:
             target: x86
     steps:
       - uses: actions/checkout@v4
-      - name: Chocolatey Action 
-        uses: crazy-max/ghaction-chocolatey@v3.1.0
+      - name: Choco help
+        uses: crazy-max/ghaction-chocolatey@v3
+        with:
+          args: -h
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
