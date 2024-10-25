@@ -13,4 +13,4 @@ pyo3 = { version = "0.22.5" }
 pyo3-async-runtimes  = { git = 'https://github.com/PyO3/pyo3-async-runtimes.git', rev = '284bd36d0426a988026f878cae22abdb179795e6', features = ["attributes", "tokio-runtime"] }
 reqwest = "0.12.8"
 tokio = { version = "1.41.0", features = ["rt"] }
-# openssl = { version = "0.10", features = ["vendored"] }
+openssl = { version = "0.10.57", features = ["vendored"] }
