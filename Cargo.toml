@@ -1,0 +1,15 @@
+[package]
+name = "batch_http"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = "batch_http"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.22.5" }
+pyo3-async-runtimes  = { git = 'https://github.com/PyO3/pyo3-async-runtimes.git', rev = '284bd36d0426a988026f878cae22abdb179795e6', features = ["attributes", "tokio-runtime"] }
+reqwest = "0.12.8"
+tokio = { version = "0.2.22", features = ["full"] }
