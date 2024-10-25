@@ -41,13 +41,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - name: Install Perl dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y openssl libssl-dev
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
+          before-script-linux: |
+            sudo apt-get update
+            sudo apt-get install -y openssl libssl-dev
           target: ${{ matrix.platform.target }}
           args: --release --out dist --find-interpreter
           sccache: 'true'
@@ -73,16 +72,15 @@ jobs:
             target: armv7
     steps:
       - uses: actions/checkout@v4
-      - name: Install Perl dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y openssl libssl-dev
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
+          before-script-linux: |
+            sudo apt-get update
+            sudo apt-get install -y openssl libssl-dev
           target: ${{ matrix.platform.target }}
           args: --release --out dist --find-interpreter
           sccache: 'true'
