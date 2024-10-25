@@ -50,6 +50,7 @@ coverage.xml
 .project
 .pydevproject
 
+*.pyd
 # Rope
 .ropeproject
 

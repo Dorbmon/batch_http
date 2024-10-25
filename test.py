@@ -4,7 +4,7 @@ import asyncio
 reqs = []
 
 for i in range(10):
-    reqs.append(batch_http.Request(f"https://api-test.rumibot.com/ping", "GET"))
+    reqs.append(batch_http.Request(f"https://google.com", "GET"))
 
 async def main():
     response = await batch_http.batch_request(reqs)

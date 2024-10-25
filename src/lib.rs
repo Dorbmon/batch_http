@@ -74,7 +74,7 @@ fn batch_request<'a>(py: Python<'a>, requests: &Bound<'a, PyList>, return_panic:
 }
 
 #[pymodule]
-#[pyo3(name = "batch_http")]
+#[pyo3(name = "batch_http_request")]
 fn my_async_module(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(batch_request, m)?)?;
     m.add_class::<Request>()?;
