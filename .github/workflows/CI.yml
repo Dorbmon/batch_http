@@ -41,8 +41,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - name: Install OpenSSL
-        run: sudo apt-get update && sudo apt-get install -y libssl-dev
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -74,8 +72,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - name: Install OpenSSL
-        run: sudo apt-get update && sudo apt-get install -y libssl-dev
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -100,10 +96,6 @@ jobs:
             target: x86
     steps:
       - uses: actions/checkout@v4
-      - name: Choco help
-        uses: crazy-max/ghaction-chocolatey@v3
-        with:
-          args: -h
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
@@ -131,8 +123,6 @@ jobs:
             target: aarch64
     steps:
       - uses: actions/checkout@v4
-      - name: Install OpenSSL
-        run: brew install openssl
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
