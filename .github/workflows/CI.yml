@@ -44,7 +44,7 @@ jobs:
       - name: Install Perl dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libipc-cmd-perl
+          sudo apt-get install -y openssl-devel
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -76,7 +76,7 @@ jobs:
       - name: Install Perl dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libipc-cmd-perl
+          sudo apt-get install -y openssl-devel
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
