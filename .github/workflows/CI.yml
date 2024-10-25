@@ -60,7 +60,7 @@ jobs:
                 # If we're running on debian-based system.
                 apt update -y && apt-get install -y libssl-dev openssl pkg-config
             fi
-            echo "yes" | cpan -i Sub::Util
+            echo "yes" | perl -MCPAN -e 'install Sub::Util'
           target: ${{ matrix.platform.target }}
           args: --release --out dist --find-interpreter
           sccache: 'true'
