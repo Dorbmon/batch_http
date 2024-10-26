@@ -1,4 +1,4 @@
-use std::str::FromStr;
+use std::{collections::HashMap, str::FromStr};
 
 use pyo3::{exceptions::{PyRuntimeError, PyTypeError}, prelude::*, types::{PyList, PyType}, wrap_pyfunction};
 mod request;
@@ -7,14 +7,22 @@ use request::{Request, Response};
 
 use tokio;
 #[pyfunction]
-#[pyo3(signature = (requests, return_panic=false, /))]
-fn batch_request<'a>(py: Python<'a>, requests: &Bound<'a, PyList>, return_panic: bool) -> PyResult<Bound<'a, PyAny>> {
+#[pyo3(signature = (requests, return_panic=false, proxy=Vec::new(), /))]
+fn batch_request<'a>(py: Python<'a>, requests: &Bound<'a, PyList>, return_panic: bool, proxy: Vec<(String, String)>) -> PyResult<Bound<'a, PyAny>> {
     for request in requests.iter() {
         if !request.is_instance_of::<Request>() {
             return Err(PyTypeError::new_err("Invalid request type"));
         }
     }
-    let client = reqwest::Client::new();
+    let mut client = reqwest::Client::builder();
+    for (key, value) in proxy.iter() {
+        match key.as_str() {
+            "http" => client = client.proxy(reqwest::Proxy::http(value).unwrap()),
+            "https" => client = client.proxy(reqwest::Proxy::https(value).unwrap()),
+            _ => return Err(PyTypeError::new_err("Invalid proxy type")),
+        };
+    }
+    let client = client.build().unwrap();
     let mut features = Vec::with_capacity(requests.len());
     for request in requests.iter() {
         let req = Request::extract_bound(&request).unwrap();
