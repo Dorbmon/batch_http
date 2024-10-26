@@ -15,11 +15,14 @@ fn batch_request<'a>(py: Python<'a>, requests: &Bound<'a, PyList>, return_panic:
     }
     let mut client = reqwest::Client::builder();
     for (key, value) in proxy.iter() {
-        match key.as_str() {
-            "http" => client = client.proxy(reqwest::Proxy::http(value).unwrap()),
-            "https" => client = client.proxy(reqwest::Proxy::https(value).unwrap()),
+        client = client.proxy(match match key.as_str() {
+            "http" => reqwest::Proxy::http(value),
+            "https" => reqwest::Proxy::https(value),
             _ => return Err(PyTypeError::new_err("Invalid proxy type")),
-        };
+        } {
+            Ok(p) => p,
+            Err(e) => return Err(PyRuntimeError::new_err(e.to_string()))
+        });
     }
     let client = client.build().unwrap();
     let mut features = Vec::with_capacity(requests.len());
