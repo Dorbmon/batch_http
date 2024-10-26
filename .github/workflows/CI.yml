@@ -50,6 +50,9 @@ jobs:
             # If we're running on rhel centos, install needed packages.
             if command -v yum &> /dev/null; then
                 yum update -y && yum install -y perl-core openssl openssl-devel pkgconfig libatomic
+                curl -LOk http://xrl.us/cpanm
+                chmod +x cpanm
+                ./cpanm Scalar::List::Utils
                 # cpan -I Scalar::List::Utils
                 # If we're running on i686 we need to symlink libatomic
                 # in order to build openssl with -latomic flag.
