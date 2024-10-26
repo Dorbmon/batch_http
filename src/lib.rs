@@ -1,11 +1,10 @@
-use std::{collections::HashMap, str::FromStr};
+use std::str::FromStr;
 
-use pyo3::{exceptions::{PyRuntimeError, PyTypeError}, prelude::*, types::{PyList, PyType}, wrap_pyfunction};
+use pyo3::{exceptions::{PyRuntimeError, PyTypeError}, prelude::*, types::PyList, wrap_pyfunction};
 mod request;
 use reqwest;
 use request::{Request, Response};
 
-use tokio;
 #[pyfunction]
 #[pyo3(signature = (requests, return_panic=false, proxy=Vec::new(), /))]
 fn batch_request<'a>(py: Python<'a>, requests: &Bound<'a, PyList>, return_panic: bool, proxy: Vec<(String, String)>) -> PyResult<Bound<'a, PyAny>> {
@@ -83,7 +82,7 @@ fn batch_request<'a>(py: Python<'a>, requests: &Bound<'a, PyList>, return_panic:
 
 #[pymodule]
 #[pyo3(name = "batch_http_request")]
-fn batch_http_request(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
+fn batch_http_request(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(batch_request, m)?)?;
     m.add_class::<Request>()?;
     m.add_class::<Response>()?;
